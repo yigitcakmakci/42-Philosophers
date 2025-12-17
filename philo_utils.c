@@ -1,7 +1,19 @@
-#include<sys/time.h>
-#include<unistd.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ycakmakc <ycakmakc@student.42kocaeli.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/17 22:07:56 by ycakmakc          #+#    #+#             */
+/*   Updated: 2025/12/17 22:09:24 by ycakmakc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int	ft_atoi(const char *str)
+#include <sys/time.h>
+#include <unistd.h>
+
+int	fs_atoi(const char *str)
 {
 	int	i;
 	int	sign;
@@ -26,13 +38,13 @@ int	ft_atoi(const char *str)
 	return (result * sign);
 }
 
-unsigned long get_time_in_ms(void)
+unsigned long	ges_time_in_ms(void)
 {
-	struct timeval val;
-	unsigned long res;
-	gettimeofday(&val, NULL);
+	struct timeval	val;
+	unsigned long	res;
 
+	gettimeofday(&val, NULL);
 	res = (val.tv_sec * 1000);
 	res += (val.tv_usec / 1000);
-	return res;
+	return (res);
 }
