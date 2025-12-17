@@ -6,17 +6,18 @@
 typedef struct t_metabolism
 {
 	int				number_of_philosophers;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
+	unsigned long	time_to_die;
+	unsigned long	time_to_eat;
+	unsigned long	time_to_sleep;
 	int				required_food_number;
+	int				stop_flag;
 	pthread_mutex_t	*forks;
 }					s_metabolism;
 
 typedef struct t_current
 {
 	int				id;
-	int				last_eat;
+	unsigned long	last_eat;
 	int				eat_count;
 }					s_current;
 
@@ -29,7 +30,8 @@ typedef struct t_philo
 	s_current		current;
 }					s_philo;
 
+int					check_arg(char **argv);
 int					ft_atoi(const char *str);
-int					get_time_in_ms(void);
+unsigned long		get_time_in_ms(void);
 
 #endif
