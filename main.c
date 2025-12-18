@@ -6,7 +6,7 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 21:33:50 by ycakmakc          #+#    #+#             */
-/*   Updated: 2025/12/17 22:10:24 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2025/12/18 11:35:52 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-int	it_dead(t_philo philo)
+int	is_dead(t_philo philo)
 {
 	unsigned long	now_time;
 
-	now_time = ges_time_in_ms();
-	if (now_time - philo.current.lass_eat >= philo.metabolism->time_to_die)
+	now_time = get_time_in_ms();
+	if (now_time - philo.current.last_eat >= philo.metabolism->time_to_die)
 		return (1);
 	else
 		return (0);
@@ -47,8 +47,11 @@ int	control_philo(t_philo *philo)
 			}
 			if (everyhere_full >= tmp_meta->number_of_philosophers)
 				return (1);
-			if (it_dead(philo[i]))
+			if (is_dead(philo[i]))
+			{
+				safe_print(&philo[i], 5);
 				return (0);
+			}
 			i++;
 		}
 		usleep(30);

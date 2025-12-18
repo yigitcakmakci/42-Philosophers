@@ -6,7 +6,7 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 22:07:56 by ycakmakc          #+#    #+#             */
-/*   Updated: 2025/12/17 22:09:24 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2025/12/18 11:35:02 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,11 @@ int	fs_atoi(const char *str)
 	return (result * sign);
 }
 
-unsigned long	ges_time_in_ms(void)
+unsigned long	get_time_in_ms(void)
 {
-	struct timeval	val;
-	unsigned long	res;
+	struct timeval	tv;
 
-	gettimeofday(&val, NULL);
-	res = (val.tv_sec * 1000);
-	res += (val.tv_usec / 1000);
-	return (res);
+	if (gettimeofday(&tv, NULL) == -1)
+		return (0);
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
