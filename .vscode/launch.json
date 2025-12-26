@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/ycakmakc/42_School/Philosophers",
-      "program": "/home/ycakmakc/42_School/Philosophers/build/Debug/outDebug",
+      "cwd": "/home/ycakmakc/42_School/philosophers",
+      "program": "/home/ycakmakc/42_School/philosophers/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
