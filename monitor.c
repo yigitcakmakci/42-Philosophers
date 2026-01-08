@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   monitor.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ycakmakc <ycakmakc@student.42kocaeli.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/26 12:52:25 by ycakmakc          #+#    #+#             */
+/*   Updated: 2025/12/26 15:32:13 by ycakmakc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 #include <unistd.h>
 
@@ -16,6 +28,28 @@ int	is_dead(t_philo philo)
 		return (0);
 }
 
+int	is_full(t_metabolism *tmp_meta, int eat_count)
+{
+	if (tmp_meta->rfn != -1)
+	{
+		if (eat_count >= tmp_meta->rfn)
+			return (1);
+		else
+			return (0);
+	}
+	return (0);
+}
+
+int	init_eat_count(t_philo *philo, int i)
+{
+	int	eat_count;
+
+	pthread_mutex_lock(&philo->metabolism->dead_lock);
+	eat_count = philo[i].current.eat_count;
+	pthread_mutex_unlock(&philo->metabolism->dead_lock);
+	return (eat_count);
+}
+
 int	control_philo(t_philo *philo)
 {
 	int				i;
@@ -30,14 +64,8 @@ int	control_philo(t_philo *philo)
 		i = 0;
 		while (i < tmp_meta->number_of_philosophers)
 		{
-			pthread_mutex_lock(&philo->metabolism->dead_lock);
-			eat_count = philo[i].current.eat_count;
-			pthread_mutex_unlock(&philo->metabolism->dead_lock);
-			if (tmp_meta->rfn != -1)
-			{
-				if (eat_count >= tmp_meta->rfn)
-					everyhere_full++;
-			}
+			eat_count = init_eat_count(philo, i);
+			everyhere_full += is_full(tmp_meta, eat_count);
 			if (everyhere_full >= tmp_meta->number_of_philosophers)
 				return (1);
 			if (is_dead(philo[i]))

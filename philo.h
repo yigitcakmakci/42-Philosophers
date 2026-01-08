@@ -6,7 +6,7 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 22:07:44 by ycakmakc          #+#    #+#             */
-/*   Updated: 2025/12/25 14:33:26 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2025/12/26 13:18:22 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ typedef struct s_metabolism
 	unsigned long	time_to_sleep;
 	int				rfn;
 	int				stop_flag;
-	pthread_mutex_t dead_lock; 
-    pthread_mutex_t print_mutex;
+	pthread_mutex_t	dead_lock;
+	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	*forks;
 }					t_metabolism;
 
@@ -53,10 +53,12 @@ void				create_philo(t_philo *philo, t_metabolism *meta);
 void				set_forks_and_start_life_loop(t_philo *philo,
 						t_metabolism *meta);
 void				spy_philo(t_philo *philo);
-void				safe_print(t_philo	*philo, int print_status);
-t_metabolism		get_meta(char	**argv);
+void				safe_print(t_philo *philo, int print_status);
+t_metabolism		get_meta(char **argv);
 int					control_philo(t_philo *philo);
 void				init_philos(t_philo *philo, t_metabolism *meta);
 void				free_all(t_philo **philo);
+void				mutex_print(t_philo *philo, char *str);
+void				destroy_pthread(t_philo *philo, t_metabolism meta);
 
 #endif

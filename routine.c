@@ -1,7 +1,48 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   routine.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ycakmakc <ycakmakc@student.42kocaeli.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/26 12:52:16 by ycakmakc          #+#    #+#             */
+/*   Updated: 2025/12/26 13:34:50 by ycakmakc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 #include "unistd.h"
 
-int		check_stop(t_philo *philo)
+void	lock_forks(t_philo *philo)
+{
+	if (philo->current.id % 2 == 0)
+	{
+		pthread_mutex_lock(philo->right_fork);
+		safe_print(philo, 1);
+		pthread_mutex_lock(philo->left_fork);
+		safe_print(philo, 1);
+	}
+	else
+	{
+		pthread_mutex_lock(philo->left_fork);
+		safe_print(philo, 1);
+		pthread_mutex_lock(philo->right_fork);
+		safe_print(philo, 1);
+	}
+}
+
+void	eat(t_philo	*philo)
+{
+	pthread_mutex_lock(&philo->metabolism->dead_lock);
+	philo->current.last_eat = get_time_in_ms();
+	pthread_mutex_unlock(&philo->metabolism->dead_lock);
+	usleep(philo->metabolism->time_to_eat * 1000);
+	pthread_mutex_lock(&philo->metabolism->dead_lock);
+	philo->current.eat_count++;
+	pthread_mutex_unlock(&philo->metabolism->dead_lock);
+}
+
+int	check_stop(t_philo *philo)
 {
 	int	ret;
 
@@ -20,28 +61,9 @@ void	*life_loop(void *arg)
 		usleep(1000);
 	while (check_stop(philo) == 0)
 	{
-		if (philo->current.id % 2 == 0)
-		{
-			pthread_mutex_lock(philo->right_fork);
-			safe_print(philo, 1);
-			pthread_mutex_lock(philo->left_fork);
-			safe_print(philo, 1);
-		}
-		else
-		{
-			pthread_mutex_lock(philo->left_fork);
-			safe_print(philo, 1);
-			pthread_mutex_lock(philo->right_fork);
-			safe_print(philo, 1);
-		}
+		lock_forks(philo);
 		safe_print(philo, 2);
-		pthread_mutex_lock(&philo->metabolism->dead_lock);
-		philo->current.last_eat = get_time_in_ms();
-		pthread_mutex_unlock(&philo->metabolism->dead_lock);
-		usleep(philo->metabolism->time_to_eat * 1000);
-		pthread_mutex_lock(&philo->metabolism->dead_lock);
-		philo->current.eat_count++;
-		pthread_mutex_unlock(&philo->metabolism->dead_lock);
+		eat(philo);
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
 		safe_print(philo, 3);
