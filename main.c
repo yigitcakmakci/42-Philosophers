@@ -6,7 +6,7 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 21:33:50 by ycakmakc          #+#    #+#             */
-/*   Updated: 2026/01/08 14:54:04 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/01/15 13:12:55 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ int	start_simulation(t_philo *philo, t_metabolism *meta)
 	while (i < meta->number_of_philosophers)
 	{
 		philo[i].current.last_eat = meta->start_time;
-		if (pthread_create(&philo[i].thread_id, NULL, &life_loop, &philo[i]))
+		if (pthread_create(&philo[i].thread_id, NULL, &life_loop,
+				&philo[i]) != 0)
 			return (1);
 		i++;
 	}
@@ -82,11 +83,8 @@ int	main(int argc, char **argv)
 
 	if (!check_arg(argc, argv))
 		return (0);
-	meta = get_meta(argv);
-	philo = malloc(sizeof(t_philo) * meta.number_of_philosophers);
-	create_philo(philo, &meta);
-	init_philos(philo, &meta);
-	start_simulation(philo, &meta);
+	if (init_simulation(&philo, &meta, argv) != 0)
+		return (1);
 	if (control_philo(philo) == 1)
 	{
 		change_stop_flag(&meta);
