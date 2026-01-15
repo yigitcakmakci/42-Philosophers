@@ -6,12 +6,19 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 12:52:25 by ycakmakc          #+#    #+#             */
-/*   Updated: 2025/12/26 15:32:13 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/01/15 14:35:22 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <unistd.h>
+
+void	change_stop_flag(t_metabolism *meta)
+{
+	pthread_mutex_lock(&(*meta).dead_lock);
+	(*meta).stop_flag = 1;
+	pthread_mutex_unlock(&(*meta).dead_lock);
+}
 
 int	is_dead(t_philo philo)
 {

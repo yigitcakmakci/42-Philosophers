@@ -6,7 +6,7 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 12:52:10 by ycakmakc          #+#    #+#             */
-/*   Updated: 2026/01/08 14:49:31 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/01/15 14:02:25 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,43 +14,6 @@
 #include <stdio.h>
 #include <sys/time.h>
 #include <unistd.h>
-
-void	destroy_pthread(t_philo *philo, t_metabolism meta)
-{
-	int	i;
-
-	i = 0;
-	while (i < meta.number_of_philosophers)
-	{
-		pthread_join(philo[i].thread_id, NULL);
-		i++;
-	}
-}
-
-int	ft_atoi(const char *str)
-{
-	int	i;
-	int	sign;
-	int	result;
-
-	i = 0;
-	sign = 1;
-	result = 0;
-	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '+' || str[i] == '-')
-	{
-		if (str[i] == '-')
-			sign = -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		result = (result * 10) + (str[i] - '0');
-		i++;
-	}
-	return (result * sign);
-}
 
 unsigned long	get_time_in_ms(void)
 {

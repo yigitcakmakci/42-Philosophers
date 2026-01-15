@@ -6,12 +6,12 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 12:52:16 by ycakmakc          #+#    #+#             */
-/*   Updated: 2025/12/26 13:34:50 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/01/15 15:08:55 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include "unistd.h"
+#include <unistd.h>
 
 void	lock_forks(t_philo *philo)
 {
