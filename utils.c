@@ -6,7 +6,7 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 12:52:10 by ycakmakc          #+#    #+#             */
-/*   Updated: 2026/01/15 14:02:25 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/01/17 10:12:38 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,6 @@ unsigned long	get_time_in_ms(void)
 	if (gettimeofday(&tv, NULL) == -1)
 		return (0);
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
-}
-
-void	mutex_print(t_philo *philo, char *str)
-{
-	pthread_mutex_lock(&philo->metabolism->print_mutex);
-	printf("%s", str);
-	pthread_mutex_unlock(&philo->metabolism->print_mutex);
 }
 
 void	safe_print(t_philo *philo, int status)

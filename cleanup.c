@@ -6,7 +6,7 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:02:33 by ycakmakc          #+#    #+#             */
-/*   Updated: 2026/01/15 14:47:58 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/01/17 10:11:32 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,4 @@ void	cleanup_mutexes(t_philo *philo, t_metabolism *meta)
 	}
 	pthread_mutex_destroy(&meta->dead_lock);
 	pthread_mutex_destroy(&meta->print_mutex);
-}
-
-int	setup_error(t_metabolism *meta, t_philo *philo, char *msg)
-{
-	if (meta->forks)
-		free(meta->forks);
-	if (philo)
-		free(philo);
-	printf("%s\n", msg);
-	return (1);
 }

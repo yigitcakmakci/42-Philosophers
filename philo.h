@@ -6,7 +6,7 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 22:07:44 by ycakmakc          #+#    #+#             */
-/*   Updated: 2026/01/15 14:46:43 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/01/17 10:12:18 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void				spy_philo(t_philo *philo);
 void				safe_print(t_philo *philo, int print_status);
 t_metabolism		get_meta(char **argv);
 int					control_philo(t_philo *philo);
-void				mutex_print(t_philo *philo, char *str);
 void				destroy_pthread(t_philo *philo, t_metabolism *meta);
 int					init_simulation(t_philo **philo, t_metabolism *meta,
 						char **argv);
