@@ -6,7 +6,7 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 12:52:16 by ycakmakc          #+#    #+#             */
-/*   Updated: 2026/01/15 15:08:55 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/03/24 13:04:21 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,25 @@ int	check_stop(t_philo *philo)
 	return (ret);
 }
 
+static void	lonely_philosopher(t_philo	*philo)
+{
+	pthread_mutex_lock(philo->left_fork);
+	safe_print(philo, 1);
+	while (check_stop(philo) == 0)
+		usleep(200);
+	pthread_mutex_unlock(philo->left_fork);
+}
+
 void	*life_loop(void *arg)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	if (philo->metabolism->number_of_philosophers == 1)
+	{
+		lonely_philosopher(philo);
+		return ((void *)0);
+	}
 	if (philo->current.id % 2 == 0)
 		usleep(1000);
 	while (check_stop(philo) == 0)
@@ -69,6 +83,7 @@ void	*life_loop(void *arg)
 		safe_print(philo, 3);
 		usleep(philo->metabolism->time_to_sleep * 1000);
 		safe_print(philo, 4);
+		usleep(100);
 	}
 	return ((void *)0);
 }

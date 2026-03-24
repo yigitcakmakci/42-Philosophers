@@ -6,7 +6,7 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 21:33:50 by ycakmakc          #+#    #+#             */
-/*   Updated: 2026/01/15 15:08:37 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/03/24 11:39:58 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int argc, char **argv)
 	t_philo			*philo;
 
 	if (!check_arg(argc, argv))
-		return (0);
+		return (1);
 	if (init_simulation(&philo, &meta, argv) != 0)
 		return (1);
 	if (control_philo(philo) == 1)
