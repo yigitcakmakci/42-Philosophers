@@ -6,7 +6,7 @@
 /*   By: ycakmakc <ycakmakc@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 12:52:10 by ycakmakc          #+#    #+#             */
-/*   Updated: 2026/01/17 10:12:38 by ycakmakc         ###   ########.fr       */
+/*   Updated: 2026/03/24 13:28:26 by ycakmakc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	safe_print(t_philo *philo, int status)
 		pthread_mutex_unlock(&philo->metabolism->print_mutex);
 		return ;
 	}
+	if (status == 5)
+		philo->metabolism->stop_flag = 1;
 	pthread_mutex_unlock(&philo->metabolism->dead_lock);
 	time = get_time_in_ms() - philo->metabolism->start_time;
 	if (status == 1)
